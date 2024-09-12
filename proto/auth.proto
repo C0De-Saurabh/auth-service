@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package auth;
+option go_package = "./proto";
+
+service AuthService {
+    rpc Register(User) returns (Response);
+    rpc Login(Credentials) returns (AuthResponse);
+    rpc ValidateToken(Token) returns (Response);
+    rpc GuestLogin(OTPRequest) returns (OTPResponse);
+}
+
+message User {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    string role = 4;
+}
+
+message Credentials {
+    string username = 1;
+    string password = 2;
+}
+
+message Token {
+    string token = 1;
+}
+
+message OTPRequest {
+    string phone = 1;
+}
+
+message OTPResponse {
+    string otp = 1;
+    string message = 2;
+}
+
+message Response {
+    string message = 1;
+    bool success = 2;
+}
+
+message AuthResponse {
+    string token = 1;
+    bool success = 2;
+}
